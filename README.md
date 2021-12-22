@@ -44,7 +44,7 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 ## Results
 ### 1) CNN-8 on SVHN, where the PIM array size is 256x512, and the wieght bit precision is 1-bit.
 | **Conv** | **IC** | **OC** | **Params** | **VW-SDK** | **RCP** |
-| **** | **** | **** | **** | **cc** | **cc** |
+| **Conv** | **IC** | **OC** | **Params** | **VW-SDK** | **RCP** |
 |:---:|:---:|---:|---:|---:|:---:|
 | 224x224 | 3x3x3x64 | 49284 | 12321 | 6216 | 10x3x3x64 |
 | 224x224 | 3x3x64x64 | 98568 | 24642 | 24642 | 4x4x32x128 |
