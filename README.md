@@ -14,17 +14,21 @@ SDK), which adaptively determines the shape of the parallel window that leads to
 ### test_SVHN.py
 * This code training and pruning the CNN-8 on SVHN.
 * If you train this model, scheduler(milestones=[50, 75, 90])
+
 command: python3 test_SVHN.py --mode train --q 1 --ab 1 --wb 1 --total_epochs 100 --lr 0.001
 
 * If you prune this moel, you have to change your directory and scheduler(milestones=[10, 20, 30])
+
 command: python3 test_SVHN.py --mode prune --q 1 --ab 1 --wb 1 --total_epochs 40 --lr 0.001
 
 ### test_resnet20_cp.py
 * This code training and pruning the Resnet-20 on cifar10.
 * If you train this model, scheduler(milestones=[75, 125, 175])
+
 command: python3 test_resnet20_cp.py --mode train --q 1 --ab 2 --wb 2 --total_epochs 200 --lr 0.001
 
 * If you prune this moel, you have to change your directory and scheduler(milestones=[30, 50, 70])
+
 command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_epochs 80 --lr 0.001
 
 ### cifar_resnet.py
