@@ -98,7 +98,7 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 | 7 | 256 | 256 | 589824 | 3x3 | 56 | 360 |
 
 ## RCP1 model
-| **Conv** | **IC** | **OC** | **Params** | **Cycles with VW-SDK** |
+| **Conv** | **IC** | **OC** | **Params** | **PW** | **ICt** | **Cycles with VW-SDK** |
 |:---:|:---:|---:|---:|---:|:---:|:---:|
 | 1 | 3 | 42 | 1134  | 4x3 | - | - |
 | 2 | 42 | 42 | 15876 | 4x3 | 42 | 450 |
