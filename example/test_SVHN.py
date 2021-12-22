@@ -25,24 +25,24 @@ stream_handler.setFormatter(formatter)
 logger.addHandler(stream_handler)
 
 
-GPU_NUM = 0 # 원하는 GPU 번호 입력
+GPU_NUM = 0 # GPU
 device = torch.device(f'cuda:{GPU_NUM}' if torch.cuda.is_available() else 'cpu')
 torch.cuda.set_device(device) # change allocation of current GPU
 print ('Current cuda device ', torch.cuda.current_device()) # check
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--mode', type=str, required=True, choices=['train', 'prune', 'test'])
-parser.add_argument('--batch_size', type=int, default=512) # 128로 줄이니까 돌아감
+parser.add_argument('--batch_size', type=int, default=512) #
 parser.add_argument('--verbose', action='store_true', default=False)
 parser.add_argument('--total_epochs', type=int, default=1)
-parser.add_argument('--step_size', type=int, default=40) # 0.05일 떄, 75
+parser.add_argument('--step_size', type=int, default=40) 
 parser.add_argument('--round', type=int, default=1)
-parser.add_argument('--lr', type=float, default=0.001) # 0.001 고정
-parser.add_argument('--q', type=int, default=0) # 0 : fsull, 1 : quantize
+parser.add_argument('--lr', type=float, default=0.001)
+parser.add_argument('--q', type=int, default=0) 
 parser.add_argument('--ab', type=int, default=0)
 parser.add_argument('--wb', type=int, default=0)
-parser.add_argument('--optim', type=str, default = 'Adam') # 아담 고정
-parser.add_argument('--directory', type=str, default = '/Data') # fc layer 크기
+parser.add_argument('--optim', type=str, default = 'Adam') 
+parser.add_argument('--directory', type=str, default = '/Data') 
 parser.add_argument('--scheduler', type=str, default = 'Multi_StepLR')
 parser.add_argument('--f', type=int, default = 20)
 
@@ -51,15 +51,12 @@ args = parser.parse_args()
 if args.q == 0:
     file_name = './log_svhn2/svhn_e_%d.log'%(args.total_epochs)
 else :
-    # file_name = './log_svhn2/sort_256x128_1bit_svhn_ab_%d_wb_%d_e_%d.log'%(args.ab, args.wb, args.total_epochs)
-    file_name = './log_svhn2/test128x512.log'
+    file_name = './log_svhn2/prune.log'
 file_handler = logging.FileHandler(file_name)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 prune_root = '/Data/ckpt_svhn2' 
-
-# 85 // 93
 
 def get_dataloader():
     train_loader = torch.utils.data.DataLoader(
@@ -108,8 +105,11 @@ def train_model(model, train_loader, test_loader):
         scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.step_size, 0.1) # 스케쥴러 설정
 
     elif args.scheduler == 'Multi_StepLR' :
-        # scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[50, 75, 90], gamma=0.1) 
-        scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[10, 20, 30], gamma=0.1) 
+        if args.mode == 'train' :
+            scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[50, 75, 90], gamma=0.1) 
+        if args.mode == 'prune' :
+            scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[10, 20, 30], gamma=0.1) 
+
 
 
 
@@ -230,11 +230,11 @@ def main():
         VGG13 information
         '''
 
-        images = [18, 18, 9, 7, 7, 5] # 원래 마지막에는 2임
+        images = [18, 18, 9, 7, 7, 5] 
         IC = [24, 32, 32, 64, 64, 64]
         OC = [32, 32, 64, 64, 64, 256]
         K = [3, 3, 3, 3, 3, 5]
-        array = [256, 512] # row, col // Deep Neural Network Acceleration in Non-Volatile Memory: A Digital Approach
+        array = [256, 512] # row, col 
         bit_precision = 1
         memory_precision = 1
         after_ic = []
@@ -314,9 +314,8 @@ def main():
             logger.info("Sum of block pruned = %.1f\n"%(sum(block_pruned)))
             logger.info("Accuacy of the pruned network = %.4f\n"%(acc_p))
             logger.info("Accuacy gap = %.4f\n"%(acc_ori - acc_p))
-            # if (sum(block_pruned)==0) or (acc_ori - acc_p > 0.01):
-            # if sum(block_pruned)==0 :
-            #     break
+            if (sum(block_pruned)==0) or (acc_ori - acc_p > 0.01):
+                break
             # if i != 0 :
             #     if acc_list[i-1] > acc_list[i] :
             #         break
