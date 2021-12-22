@@ -55,7 +55,7 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 | 7 | 64 | 256 | 409600 | 5x5 | 10 | 7 |
 
 ## RCP1 model
-| **Conv** | **IC** | **OC** | **Params** | **Cycles with VW-SDK** |
+| **Conv** | **IC** | **OC** | **Params** | **PW** | **ICt** | **Cycles with VW-SDK** |
 |:---:|:---:|---:|---:|---:|:---:|:---:|
 | 1 | 3 | 18 | 1350  | 10x8 | - | - |
 | 2 | 18 | 21 | 3402 | 10x4 | 6 | 48 |
@@ -66,8 +66,8 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 | 7 | 60 | 256 | 384000 | 5x5 | 10 | 6 |
 
 ## RCP2 model
-| **Conv** | **IC** | **OC** | **Params** | **Cycles with VW-SDK** |
-|:---:|:---:|---:|---:|---:|
+| **Conv** | **IC** | **OC** | **Params** | **PW** | **ICt** | **Cycles with VW-SDK** |
+|:---:|:---:|---:|---:|---:|:---:|:---:|
 | 1 | 3 | 18 | 1350  | 10x8 | - | - |
 | 2 | 18 | 18 | 2916 | 10x4 | 6 | 48 |
 | 3 | 18 | 27 | 4374 | 10x6 | 6 | 48 |
@@ -78,7 +78,7 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 
 ## Network accuracy
 |**Acti/Weight** | **Original** | **RCP1** | **RCP2** |
-|:---:|:---:|---:|---:|---:|:---:|
+|:---:|:---:|---:|---:|
 | 1/1 | 93.61 | 92.79  | 92.88 |
 | 2/1 | 95.07 | 94.75  | 94.77 |
 | 4/1 | 95.02 | 94.92  | 95.07 |
@@ -88,7 +88,7 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 ### 1) ResNet-20 on Cifar10, where the PIM array size is 512x256, and the wieght bit precision is 2-bit.
 ## Original model
 | **Conv** | **IC** | **OC** | **Params** | **PW** | **ICt** | **Cycles with VW-SDK** |
-|:---:|:---:|---:|---:|---:|:---:|
+|:---:|:---:|---:|---:|---:|:---:|:---:|
 <!-- | 1 | 3 | 24 | 1800  | 13x6 | - | - |
 | 2 | 24 | 32 | 6912 | 10x4 | 6 | 64 |
 | 3 | 32 | 32 | 9216 | 6x6 | 7 | 80 |
@@ -99,7 +99,7 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 
 ## RCP1 model
 | **Conv** | **IC** | **OC** | **Params** | **Cycles with VW-SDK** |
-|:---:|:---:|---:|---:|---:|:---:|
+|:---:|:---:|---:|---:|---:|:---:|:---:|
 <!-- | 1 | 3 | 18 | 1350  | 10x8 | - | - |
 | 2 | 18 | 21 | 3402 | 10x4 | 6 | 48 |
 | 3 | 21 | 27 | 5103 | 10x6 | 6 | 64 |
