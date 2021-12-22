@@ -41,7 +41,17 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 * There are the quantization function and modified VW-SDK.
 
 
-
+## Results
+### 1) CNN-8 on SVHN, where the PIM array size is 256x512, and the wieght bit precision is 1-bit.
+| **Conv** | **IC** | **OC** | **Params** | **VW-SDK** | **RCP** |
+| **** | **** | **** | **** | **cc** | **cc** |
+|:---:|:---:|---:|---:|---:|:---:|
+| 224x224 | 3x3x3x64 | 49284 | 12321 | 6216 | 10x3x3x64 |
+| 224x224 | 3x3x64x64 | 98568 | 24642 | 24642 | 4x4x32x128 |
+| 112x112 | 3x3x64x128 | 24200 | 6050 | 6050 | 4x4x32x128 |
+| 112x112 | 3x3x128x128 | 36300 | 36300 | 12100 | 4x4x32x128 |
+| 56x56 | 3x3x128x256 | 8748 | 8748 | 5832 | 4x3x42x256 |
+| 56x56 | 3x3x256x256 | 14580 | 14580 | 10206 | 4x3x42x256 |
 
 # Reference paper and codes
 ### Any-precision DNN
