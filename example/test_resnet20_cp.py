@@ -293,7 +293,13 @@ def main():
             logger.info(model)
             params = sum([np.prod(p.size()) for p in model.parameters()])
             print("Number of Parameters: %.1fM"%(params/1e6))
-            train_model(model, train_loader, test_loader)
+            acc_p = train_model(model.cuda(), train_loader, test_loader)
+            logger.info("block pruned = " + str(block_pruned))
+            logger.info("Sum of block pruned = %.1f\n"%(sum(block_pruned)))
+            logger.info("Accuacy of the pruned network = %.4f\n"%(acc_p))
+            logger.info("Accuacy gap = %.4f\n"%(acc_ori - acc_p))
+            if (sum(block_pruned)==0) or (acc_ori - acc_p > 0.01):
+                break
 
     elif args.mode=='test':
         if args.q == 0 :
