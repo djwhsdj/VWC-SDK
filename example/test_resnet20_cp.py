@@ -53,8 +53,6 @@ if args.q == 0:
     file_name = './log_cifar10/resnet20_e_%d.log'%(args.total_epochs)
 else :
     file_name = './log_cifar10/aa.log'
-    # file_name = './log_cifar10/512x256_resnet20_ab_%d_wb_%d_e_%d.log'%(args.ab, args.wb, args.total_epochs)
-    # file_name = './log_cifar10/512x256_2bit_resnet20_ab_%d_wb_%d_e_%d.log'%(args.ab, args.wb, args.total_epochs)
 file_handler = logging.FileHandler(file_name)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
@@ -66,8 +64,6 @@ def get_dataloader():
         CIFAR10('/Data', train=True, transform=transforms.Compose([
             transforms.RandomHorizontalFlip(),
             transforms.RandomCrop(32, padding=4),
-            # transforms.RandomVerticalFlip(),
-            # transforms.CenterCrop(32),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.4914, 0.4822, 0.4465], std=[0.2023, 0.1994, 0.2010]),
         ]), download=True), shuffle=True, batch_size=args.batch_size, num_workers=0)
@@ -108,14 +104,11 @@ def train_model(model, train_loader, test_loader):
     if args.scheduler == 'StepLR' :
         scheduler = torch.optim.lr_scheduler.StepLR(optimizer, args.step_size, 0.1) 
     elif args.scheduler == 'Multi_StepLR' :
-        # scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[75, 125, 175], gamma=0.1) 
-        scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[30, 50, 70], gamma=0.1) 
-        # 스케쥴러 값 수정해볼 것.
-    else :
-        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
-    model.to(device)
+        if args.mode=='train':
+            scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[75, 125, 175], gamma=0.1) 
+        elif args.mode=='prune':
+            scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[30, 50, 70], gamma=0.1) 
 
-    # scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.01, max_lr=0.1)
 
     best_acc = -1
     result_list = {'train_loss' : [], 'train_acc' :[]}
@@ -169,7 +162,7 @@ def train_model(model, train_loader, test_loader):
 
             print('Model saved!!')
             best_acc=acc
-        scheduler.step() # 스케쥴러 껐음
+        scheduler.step() 
 
     acc_list.append(best_acc)
     logger.info("Best Acc=%.4f"%(best_acc))
