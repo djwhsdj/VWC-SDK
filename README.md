@@ -43,7 +43,7 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 
 
 
-## Reference paper and codes
+# Reference paper and codes
 ### Any-precision DNN
 You can read the original pdf [here](https://arxiv.org/abs/1911.07346), and code [here](https://github.com/SHI-Labs/Any-Precision-DNNs) 
 
