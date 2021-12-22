@@ -111,9 +111,9 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 ## Network accuracy
 |**Acti/Weight bits** | **Original** | **RCP1** |
 |:---:|:---:|---:|
-| 1/1 | 90.70 | 90.05  |
-| 2/1 | 90.93 | 91.05  |
-| 4/1 | 91.28 | 91.09  |
+| 1/2 | 90.70 | 90.05  |
+| 2/2 | 90.93 | 91.05  |
+| 4/2 | 91.28 | 91.09  |
 
 
 # Reference paper and codes
