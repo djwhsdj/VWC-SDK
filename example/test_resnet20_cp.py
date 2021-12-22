@@ -168,6 +168,7 @@ def train_model(model, train_loader, test_loader):
     logger.info("Best Acc=%.4f"%(best_acc))
     print("Best Acc=%.4f"%(best_acc))
 
+    return best_acc
 
 def prune_model(model, block_pruned, block_pruned1):
     model.cpu()
