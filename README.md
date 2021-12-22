@@ -1,4 +1,5 @@
 # VWC-SDK: Convolutional Weight Mapping Using Shifted and Duplicated Kernel with Variable Windows and Channels.
+## This paper extends teh prior work [pdf](https://arxiv.org/abs/2112.11282)
 ---
 ## Abstract
 With their high energy efficiency, processing-in-memory (PIM) arrays are increasingly used for convolutional neural network (CNN) inference. In PIM-based CNN inference, the computational latency and energy are dependent on how the CNN weights are mapped to the PIM array. A recent study proposed shifted and duplicated kernel (SDK) mapping that reuses the input feature maps with a unit of a parallel window, which is convolved with duplicated kernels to obtain multiple output elements in parallel. However, the existing SDK-based mapping algorithm does not always result in the minimum computing cycles because it only maps a square-shaped parallel window with the entire channels. In this paper, we introduce a novel mapping algorithm called variable-window SDK (VW-
@@ -36,3 +37,13 @@ command: python3 test_resnet20_cp.py --mode prune --q 1 --ab 1 --wb 1 --total_ep
 
 ### utils.py
 * There are the quantization function and modified VW-SDK.
+
+
+
+
+## Reference paper and codes
+### Any-precision DNN
+You can read the original pdf [here](https://arxiv.org/abs/1911.07346), and code [here](https://github.com/SHI-Labs/Any-Precision-DNNs) 
+
+### Pruning filters for efficient convnets
+You can read the original pdf [here](https://arxiv.org/pdf/1608.08710.pdf), and code [here](https://github.com/VainF/Torch-Pruning) 
