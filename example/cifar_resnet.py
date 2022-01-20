@@ -380,7 +380,7 @@ class SVHNQ(nn.Module):
             Activate(self.a_bit),
             # 18
             Conv2d_Q_(self.w_bit, 24, 32, kernel_size=3, padding=1, stride=1 , bias=False),
-            SwitchBatchNorm2d_(self.w_bit, 24),
+            SwitchBatchNorm2d_(self.w_bit, 32),
             Activate(self.a_bit),
 
             Conv2d_Q_(self.w_bit, 32, 32, kernel_size=3, padding=1, stride=1, bias=False),
